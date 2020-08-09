@@ -1,0 +1,20 @@
+version: "3.1"
+services:
+  timemachine-server:
+    build: .
+      restart: always
+    networks:
+       - proxy
+       - default
+    command: sh -c './server'
+    labels:
+       - "traefik.backend=cutename"
+       - "traefik.docker.network=proxy"
+       - "traefik.frontend.rule=Host:a-cute-domainname.com"
+       - "traefik.enable=true"
+       - "traefik.port=8000"
+
+networks:
+  proxy:
+    external: true
+
